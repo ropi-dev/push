@@ -63,4 +63,8 @@ else
     git commit -m "${INPUT_MESSAGE}" $_EMPTY || exit 0
 fi
 
+if ${INPUT_TAGS}; then
+    git tag ${INPUT_TAGS}
+fi
+
 git push "${remote_repo}" $_HEAD --follow-tags $_FORCE_OPTION $_TAGS;
