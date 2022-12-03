@@ -46,6 +46,7 @@ jobs:
 | empty          | boolean | false                       | Allow empty commit. |
 | force          | boolean | false                       | Determines if force push is used. |
 | tags           | boolean | false                       | Determines if `--tags` is used. |
+| tags_only      | boolean | false                       | Set to true if you don't want to push to current branch |
 | directory      | string  | '.'                         | Directory to change to before pushing. |
 | repository     | string  | ''                          | Repository name. Default or empty repository name represents current github repository. If you want to push to other repository, you should make a [personal access token](https://github.com/settings/tokens) and use it as the `github_token` input.  |
 

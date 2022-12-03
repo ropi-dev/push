@@ -13,9 +13,15 @@ INPUT_FORCE=${INPUT_FORCE:-false}
 INPUT_TAGS=${INPUT_TAGS:-false}
 INPUT_EMPTY=${INPUT_EMPTY:-false}
 INPUT_DIRECTORY=${INPUT_DIRECTORY:-'.'}
+INPUT_TAGS_ONLY=${INPUT_TAGS_ONLY:-'false'}
 REPOSITORY=${INPUT_REPOSITORY:-$GITHUB_REPOSITORY}
 
-echo "Push to branch $INPUT_BRANCH";
+if ${INPUT_TAGS_ONLY}; then
+    echo "Push to tags $INPUT_TAGS";
+else
+    echo "Push to branch $INPUT_BRANCH";
+fi
+
 [ -z "${INPUT_GITHUB_TOKEN}" ] && {
     echo 'Missing input "github_token: ${{ secrets.GITHUB_TOKEN }}".';
     exit 1;
@@ -32,6 +38,11 @@ fi
 if ${INPUT_TAGS}; then
     _TAGS='--tags'
 fi
+
+if ${INPUT_TAGS_ONLY}; then
+    _HEAD=''
+else
+    _HEAD="HEAD:'${INPUT_BRANCH}'"
 
 cd "${INPUT_DIRECTORY}"
 
@@ -52,4 +63,4 @@ else
     git commit -m "${INPUT_MESSAGE}" $_EMPTY || exit 0
 fi
 
-git push "${remote_repo}" HEAD:"${INPUT_BRANCH}" --follow-tags $_FORCE_OPTION $_TAGS;
+git push "${remote_repo}" $_HEAD --follow-tags $_FORCE_OPTION $_TAGS;

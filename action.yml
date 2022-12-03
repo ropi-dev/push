@@ -39,6 +39,9 @@ inputs:
   tags:
     description: 'Determines if --tags is used'
     required: false
+  tags_only:
+    description: 'Set to true if you don't want to push to current branch'
+    requred: false
   directory:
     description: 'Directory to change to before pushing.'
     required: false
