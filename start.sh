@@ -10,10 +10,10 @@ INPUT_COAUTHOR_NAME=${INPUT_COAUTHOR_NAME:-''}
 INPUT_MESSAGE=${INPUT_MESSAGE:-"chore: autopublish ${timestamp}"}
 INPUT_BRANCH=${INPUT_BRANCH:-master}
 INPUT_FORCE=${INPUT_FORCE:-false}
-INPUT_TAGS=${INPUT_TAGS:-false}
+INPUT_TAGS=${INPUT_TAGS}
 INPUT_EMPTY=${INPUT_EMPTY:-false}
 INPUT_DIRECTORY=${INPUT_DIRECTORY:-'.'}
-INPUT_TAGS_ONLY=${INPUT_TAGS_ONLY:-'false'}
+INPUT_TAGS_ONLY=${INPUT_TAGS_ONLY:-false}
 REPOSITORY=${INPUT_REPOSITORY:-$GITHUB_REPOSITORY}
 
 if ${INPUT_TAGS_ONLY}; then
@@ -35,9 +35,9 @@ if ${INPUT_FORCE}; then
     _FORCE_OPTION='--force'
 fi
 
-if ${INPUT_TAGS}; then
+[ -n "${INPUT_TAGS}" ] && {
     _TAGS='--tags'
-fi
+}
 
 if ${INPUT_TAGS_ONLY}; then
     _HEAD=''
@@ -64,7 +64,7 @@ else
 fi
 
 if ${INPUT_TAGS}; then
-    git tag ${INPUT_TAGS}
+    git tag "${INPUT_TAGS}"
 fi
 
 git push "${remote_repo}" $_HEAD --follow-tags $_FORCE_OPTION $_TAGS;
