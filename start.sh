@@ -42,7 +42,7 @@ fi
 if ${INPUT_TAGS_ONLY}; then
     _HEAD=''
 else
-    _HEAD="HEAD:'${INPUT_BRANCH}'"
+    _HEAD="HEAD:${INPUT_BRANCH}"
 fi
 
 cd "${INPUT_DIRECTORY}"
